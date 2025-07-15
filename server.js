@@ -1,0 +1,32 @@
+const express = require('express');
+const Pusher = require('pusher');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+
+const pusher = new Pusher({
+  appId: '2023049',
+  key: 'b50eb8000bd0cb796352',
+  secret: 'a7f566c31a13a674df98',
+  cluster: 'eu',
+  useTLS: true
+});
+
+app.post('/move', (req, res) => {
+  const { index, value } = req.body;
+
+  pusher.trigger('eco-board', 'move', {
+    index,
+    value
+  });
+
+  res.status(200).send('Movimiento enviado');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
+});
