@@ -30,3 +30,13 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
+
+app.post('/turno', (req, res) => {
+  const { nuevoTurno } = req.body;
+
+  pusher.trigger('partida', 'cambio-turno', {
+    turno: nuevoTurno
+  });
+
+  res.status(200).send({ status: 'turno actualizado' });
+});
