@@ -18,17 +18,6 @@ const pusher = new Pusher({
   useTLS: true
 });
 
-app.post('/move', (req, res) => {
-  const { index, value } = req.body;
-
-  pusher.trigger('eco-board', 'move', {
-    index,
-    value
-  });
-
-  res.status(200).send('Movimiento enviado');
-});
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
