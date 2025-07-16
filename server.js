@@ -7,6 +7,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+let jugadoresConectados = [];
+
 const pusher = new Pusher({
   appId: '2023049',
   key: 'b50eb8000bd0cb796352',
@@ -39,4 +41,14 @@ app.post('/turno', (req, res) => {
   });
 
   res.status(200).send({ status: 'turno actualizado' });
+});
+
+app.get('/jugador', (req, res) => {
+  if (jugadoresConectados.length === 0) {
+    jugadoresConectados.push('A');
+    return res.send({ jugador: 'A' });
+  } else {
+    jugadoresConectados.push('B');
+    return res.send({ jugador: 'B' });
+  }
 });
