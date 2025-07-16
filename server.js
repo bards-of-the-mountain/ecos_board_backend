@@ -8,6 +8,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 let jugadoresConectados = [];
+let contador = 0;
 
 const pusher = new Pusher({
   appId: '2023049',
@@ -44,11 +45,11 @@ app.post('/turno', (req, res) => {
 });
 
 app.get('/jugador', (req, res) => {
-  if (!jugadoresConectados.includes('A')) {
-    jugadoresConectados.push('A');
+  if (contador === 0) {
+    contador++;
     return res.send({ jugador: 'A' });
-  } else if (!jugadoresConectados.includes('B')) {
-    jugadoresConectados.push('B');
+  } else if (contador === 1) {
+    contador++;
     return res.send({ jugador: 'B' });
   } else {
     return res.status(403).send({ error: 'Partida completa' });
