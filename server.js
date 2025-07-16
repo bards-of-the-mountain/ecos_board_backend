@@ -44,11 +44,13 @@ app.post('/turno', (req, res) => {
 });
 
 app.get('/jugador', (req, res) => {
-  if (jugadoresConectados.length === 0) {
+  if (!jugadoresConectados.includes('A')) {
     jugadoresConectados.push('A');
     return res.send({ jugador: 'A' });
-  } else {
+  } else if (!jugadoresConectados.includes('B')) {
     jugadoresConectados.push('B');
     return res.send({ jugador: 'B' });
+  } else {
+    return res.status(403).send({ error: 'Partida completa' });
   }
 });
