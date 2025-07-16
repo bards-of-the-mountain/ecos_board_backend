@@ -64,3 +64,14 @@ app.post('/salir', (req, res) => {
   console.log(`Jugador ${jugador} ha salido de la partida`);
   res.send({ status: 'ok' });
 });
+
+app.post('/move', (req, res) => {
+  const { index, carta } = req.body;
+
+  pusher.trigger('eco-board', 'move', {
+    index,
+    carta
+  });
+
+  res.status(200).send('Movimiento enviado');
+});
