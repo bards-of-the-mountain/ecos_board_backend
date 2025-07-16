@@ -44,14 +44,23 @@ app.post('/turno', (req, res) => {
   res.status(200).send({ status: 'turno actualizado' });
 });
 
+
 app.get('/jugador', (req, res) => {
-  if (contador === 0) {
-    contador++;
+  if (!jugadoresConectados.includes('A')) {
+    jugadoresConectados.push('A');
     return res.send({ jugador: 'A' });
-  } else if (contador === 1) {
-    contador++;
+  } else if (!jugadoresConectados.includes('B')) {
+    jugadoresConectados.push('B');
     return res.send({ jugador: 'B' });
   } else {
     return res.status(403).send({ error: 'Partida completa' });
   }
+});
+
+app.post('/salir', (req, res) => {
+  const { jugador } = req.body;
+
+  jugadoresConectados = jugadoresConectados.filter(j => j !== jugador);
+  console.log(`Jugador ${jugador} ha salido de la partida`);
+  res.send({ status: 'ok' });
 });
