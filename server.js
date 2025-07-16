@@ -68,11 +68,12 @@ app.post('/salir', (req, res) => {
 app.post('/move', (req, res) => {
   const { index, jugador, carta } = req.body;
 
+  // No anidamos dos veces "carta"
   pusher.trigger('eco-board', 'move', {
     index,
     carta: {
-      jugador,
-      carta
+      ...carta,
+      jugador
     }
   });
 
