@@ -66,11 +66,14 @@ app.post('/salir', (req, res) => {
 });
 
 app.post('/move', (req, res) => {
-  const { index, carta } = req.body;
+  const { index, jugador, carta } = req.body;
 
   pusher.trigger('eco-board', 'move', {
     index,
-    carta
+    carta: {
+      jugador,
+      carta
+    }
   });
 
   res.status(200).send('Movimiento enviado');
