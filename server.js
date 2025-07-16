@@ -68,7 +68,7 @@ app.post('/salir', (req, res) => {
 app.post('/move', (req, res) => {
   const { index, jugador, carta } = req.body;
 
-  console.log(index)
+  console.log("req: ", req)
   console.log(jugador)
   console.log(carta)
 
