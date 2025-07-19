@@ -74,3 +74,9 @@ app.post('/move', (req, res) => {
 
   res.status(200).send('Movimiento enviado');
 });
+
+app.post('/remove', (req, res) => {
+  const { index, cartaIndex } = req.body;
+  pusher.trigger('eco-board', 'remove', { index, cartaIndex });
+  res.status(200).send('Carta eliminada');
+});
